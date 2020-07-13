@@ -1,11 +1,30 @@
+const path = require('path')
+
 module.exports = {
-  /**
-   * This is the main entry point for your application, it's the first file
-   * that runs in the main process.
-   */
   entry: './src/main.js',
-  // Put your normal webpack config below here
   module: {
-    rules: require('./webpack.rules'),
-  },
-};
+    rules: [
+      {
+        test: /\.node$/,
+        include: path.resolve(__dirname, 'src'),
+        use: 'node-loader'
+      },
+      {
+        test: /\.(m?js|node)$/,
+        include: path.resolve(__dirname, 'src'),
+        parser: { amd: false },
+        use: [{
+          loader: '@marshallofsound/webpack-asset-relocator-loader',
+          options: {
+            outputAssetBase: 'native_modules'
+          }
+        }, {
+          loader: 'eslint-loader',
+          options: {
+            configFile: '.eslintrc.main.json'
+          }
+        }]
+      }
+    ]
+  }
+}

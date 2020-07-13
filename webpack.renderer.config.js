@@ -1,13 +1,37 @@
-const rules = require('./webpack.rules');
-
-rules.push({
-  test: /\.css$/,
-  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
-});
+const StylelintPlugin = require('stylelint-webpack-plugin')
+const path = require('path')
 
 module.exports = {
-  // Put your normal webpack config below here
+  plugins: [
+    new StylelintPlugin()
+  ],
   module: {
-    rules,
-  },
-};
+    rules: [
+      {
+        test: /\.node$/,
+        include: path.resolve(__dirname, 'src'),
+        use: 'node-loader'
+      },
+      {
+        test: /\.(m?js|node)$/,
+        include: path.resolve(__dirname, 'src'),
+        parser: { amd: false },
+        use: [{
+          loader: '@marshallofsound/webpack-asset-relocator-loader',
+          options: {
+            outputAssetBase: 'native_modules'
+          }
+        }, 'babel-loader', {
+          loader: 'eslint-loader',
+          options: {
+            configFile: '.eslintrc.renderer.json'
+          }
+        }]
+      }, {
+        test: /\.(scss)$/,
+        include: path.resolve(__dirname, 'src'),
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+      }
+    ]
+  }
+}

@@ -20,6 +20,32 @@
     "url": "https://github.com/slowtacocar/memobook/issues"
   },
   "homepage": "https://github.com/slowtacocar/memobook#readme",
+  "browserslist": [
+    "Electron 9.1.0"
+  ],
+  "stylelint": {
+    "extends": [
+      "stylelint-config-twbs-bootstrap/scss"
+    ],
+    "rules": {
+      "property-blacklist": [
+        "border-radius",
+        "border-top-left-radius",
+        "border-top-right-radius",
+        "border-bottom-right-radius",
+        "border-bottom-left-radius",
+        "transition"
+      ],
+      "function-blacklist": [
+        "calc"
+      ]
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -66,6 +92,8 @@
     }
   },
   "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "@electron-forge/cli": "^6.0.0-beta.52",
     "@electron-forge/maker-deb": "^6.0.0-beta.52",
     "@electron-forge/maker-rpm": "^6.0.0-beta.52",
@@ -73,10 +101,21 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.52",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.52",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "autoprefixer": "^9.8.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
     "electron": "9.1.0",
+    "eslint": "^7.4.0",
+    "eslint-loader": "^4.0.2",
     "node-loader": "^0.6.0",
-    "style-loader": "^0.23.1"
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^0.23.1",
+    "stylelint": "^13.6.1",
+    "stylelint-config-twbs-bootstrap": "^2.0.3",
+    "stylelint-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
