@@ -14,7 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/slowtacocar/memobook.git"
   },
-  "author": "",
+  "author": {
+    "name": "slowtacocar",
+    "email": "13561297+slowtacocar@users.noreply.github.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/slowtacocar/memobook/issues"
