@@ -1,8 +1,7 @@
 {
   "name": "memobook",
-  "productName": "memobook",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A simple note-taking app written with Electron",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -11,12 +10,16 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
-  "keywords": [],
-  "author": {
-    "name": "slowtacocar",
-    "email": "13561297+slowtacocar@users.noreply.github.com"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slowtacocar/memobook.git"
   },
+  "author": "",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slowtacocar/memobook/issues"
+  },
+  "homepage": "https://github.com/slowtacocar/memobook#readme",
   "config": {
     "forge": {
       "packagerConfig": {},
