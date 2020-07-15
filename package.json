@@ -1,5 +1,6 @@
 {
   "name": "memobook",
+  "productName": "memobook",
   "version": "1.0.0",
   "description": "A simple note-taking app written with Electron",
   "main": ".webpack/main",
