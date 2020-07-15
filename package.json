@@ -119,6 +119,10 @@
     "stylelint-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "bootstrap": "^4.5.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "firebase": "^7.16.0",
+    "firebaseui": "^4.5.2",
+    "jquery": "^3.5.1"
   }
 }
