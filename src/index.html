@@ -1,12 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-
+    <meta charset="utf-8">
+    <title>memobook</title>
   </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p id="test">Welcome to your Electron application.</p>
+  <body class="preload" hidden>
+    <div class="ui" id="firebaseui"></div>
+    <div class="row">
+      <div class="col-3 py-3 pr-3">
+        <div class="nav flex-column nav-pills tags"></div>
+      </div>
+      <div class="dashboard col-9 d-flex flex-column pl-0">
+        <div class="notes flex-grow-1">
+          <div class="card-columns container-fluid pt-3" id="notes"></div>
+        </div>
+        <div class="dashboard-buttons container-fluid py-3">
+          <button type="button" class="btn btn-primary" id="newNote">New Note</button>
+        </div>
+      </div>
+    </div>
+    <div class="hidden note container-fluid d-flex flex-column py-3">
+      <div contenteditable class="form-control note-text flex-grow-1 mb-3"></div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="tagsLabel">Tags</span>
+        </div>
+        <input type="text" class="form-control tags-text" aria-describedby="tags">
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary" id="saveNote">Save Changes</button>
+        <button type="button" class="btn btn-secondary" id="closeNote">Close Note</button>
+        <button type="button" class="btn btn-danger float-right" id="deleteNote">Delete</button>
+      </div>
+    </div>
   </body>
 </html>
