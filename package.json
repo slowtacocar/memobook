@@ -1,5 +1,6 @@
 {
   "name": "memobook",
+  "productName": "memobook",
   "version": "1.0.0",
   "description": "A simple note-taking app written with Electron",
   "main": ".webpack/main",
@@ -60,10 +61,7 @@
           }
         },
         {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
+          "name": "@electron-forge/maker-dmg"
         },
         {
           "name": "@electron-forge/maker-deb",
@@ -99,9 +97,9 @@
     "@babel/preset-env": "^7.10.4",
     "@electron-forge/cli": "^6.0.0-beta.52",
     "@electron-forge/maker-deb": "^6.0.0-beta.52",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.52",
     "@electron-forge/maker-rpm": "^6.0.0-beta.52",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.52",
-    "@electron-forge/maker-zip": "^6.0.0-beta.52",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.52",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "autoprefixer": "^9.8.5",
@@ -121,6 +119,10 @@
     "stylelint-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "bootstrap": "^4.5.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "firebase": "^7.16.0",
+    "firebaseui": "^4.5.2",
+    "jquery": "^3.5.1"
   }
 }

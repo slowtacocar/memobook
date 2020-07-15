@@ -1,6 +1,59 @@
+@import "bootstrap/scss/bootstrap";
+@import "firebaseui/dist/firebaseui";
+
 body {
-  max-width: 38rem;
-  padding: 2rem;
-  margin: auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.note {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: $gray-400;
+  @include transition(transform 1s);
+}
+
+.notes {
+  overflow-y: scroll;
+}
+
+.note-text {
+  overflow-y: scroll;
+}
+
+.hidden {
+  transform: translate(100%);
+}
+
+.dashboard {
+  height: 100vh;
+  overflow-y: scroll;
+  background: $gray-100;
+}
+
+.dashboard-buttons {
+  background: $gray-200;
+}
+
+.ui {
+  position: absolute;
+  z-index: 1000;
+  width: 100vw;
+  min-height: 100vh;
+  background: $gray-700;
+}
+
+.note-body {
+  max-height: 12rem;
+  overflow-y: hidden;
+}
+
+.tags > .tag {
+  @include border-top-left-radius(0);
+  @include border-bottom-left-radius(0);
+}
+
+.preload * {
+  @include transition(none);
 }
