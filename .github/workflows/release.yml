@@ -1,0 +1,109 @@
+on:
+  push:
+    tags:
+    - 'v*'
+name: Upload Release Asset
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+  build-ubuntu:
+    needs: create-release
+    name: Upload Linux Release Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Build project
+        run: npm run make        
+      - id: deb-filename
+        run: |
+          echo ::set-output name=name::$(find ./out/make -name "*.deb" | sed "s/.*\///")
+          echo ::set-output name=path::$(find ./out/make -name "*.deb")
+      - name: Upload .deb Release Asset
+        id: upload-deb-release-asset 
+        
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ${{ steps.deb-filename.outputs.path }}
+          asset_name: ${{ steps.deb-filename.outputs.name }}
+          asset_content_type: application/vnd.debian.binary-package
+      - id: rpm-filename
+        run: |
+          echo ::set-output name=name::$(find ./out/make -name "*.rpm" | sed "s/.*\///")
+          echo ::set-output name=path::$(find ./out/make -name "*.rpm")
+      - name: Upload .rpm Release Asset
+        id: upload-rpm-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ${{ steps.rpm-filename.outputs.path }}
+          asset_name: ${{ steps.rpm-filename.outputs.name }}
+          asset_content_type: application/octet-stream
+  build-windows:
+    needs: create-release
+    name: Upload Windows Release Assets
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Build project
+        run: npm run make
+      - id: exe-filename
+        run: |
+          echo "::set-output name=name::$(Get-ChildItem -Path .\out\make\**\**\*.exe -Name)"
+          echo "::set-output name=path::.\out\make\$(Get-ChildItem -Path .\out\make -Include *.exe -Recurse -Name)"
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ${{ steps.exe-filename.outputs.path }}
+          asset_name: ${{ steps.exe-filename.outputs.name }}
+          asset_content_type: application/vnd.microsoft.portable-executable
+  build-macos:
+    needs: create-release
+    name: Upload MacOS Release Assets
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Build project
+        run: npm run make
+      - id: dmg-filename
+        run: |
+          echo ::set-output name=name::$(find ./out/make -name "*.dmg" | sed "s/.*\///")
+          echo ::set-output name=path::$(find ./out/make -name "*.dmg")
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ${{ steps.dmg-filename.outputs.path }}
+          asset_name: ${{ steps.dmg-filename.outputs.name }}
+          asset_content_type: application/octet-stream
