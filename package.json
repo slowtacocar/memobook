@@ -1,7 +1,7 @@
 {
   "name": "memobook",
   "productName": "memobook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple note-taking app written with Electron",
   "main": "src/index.js",
   "scripts": {
