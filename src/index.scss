@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 body {
   overflow-x: hidden;
 }
@@ -7,7 +9,7 @@ body {
   top: 0;
   left: 0;
   height: 100vh;
-  background: #ced4da;
+  background: $gray-400;
   transition: transform 1s;
 }
 
@@ -26,19 +28,12 @@ body {
 .dashboard {
   height: 100vh;
   overflow-y: scroll;
-  background: #f8f9fa;
+  background: $gray-100;
+  padding: 0;
 }
 
 .dashboard-buttons {
-  background: #e9ecef;
-}
-
-.ui {
-  position: absolute;
-  z-index: 1000;
-  width: 100vw;
-  min-height: 100vh;
-  background: #495057;
+  background: $gray-200;
 }
 
 .note-body {
@@ -49,8 +44,4 @@ body {
 .tags > .tag {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-.preload * {
-  transition: none;
 }
