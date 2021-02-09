@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-    - 'v*'
+      - "v*"
 name: Upload Release Asset
 jobs:
   create-release:
@@ -29,19 +29,19 @@ jobs:
         uses: actions/checkout@v2
       - run: npm ci
       - name: Build project
-        run: npm run make        
+        run: npm run make
       - id: deb-filename
         run: |
           echo ::set-output name=name::$(find ./out/make -name "*.deb" | sed "s/.*\///")
           echo ::set-output name=path::$(find ./out/make -name "*.deb")
       - name: Upload .deb Release Asset
-        id: upload-deb-release-asset 
-        
+        id: upload-deb-release-asset
+
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.deb-filename.outputs.path }}
           asset_name: ${{ steps.deb-filename.outputs.name }}
           asset_content_type: application/vnd.debian.binary-package
@@ -50,12 +50,12 @@ jobs:
           echo ::set-output name=name::$(find ./out/make -name "*.rpm" | sed "s/.*\///")
           echo ::set-output name=path::$(find ./out/make -name "*.rpm")
       - name: Upload .rpm Release Asset
-        id: upload-rpm-release-asset 
+        id: upload-rpm-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.rpm-filename.outputs.path }}
           asset_name: ${{ steps.rpm-filename.outputs.name }}
           asset_content_type: application/octet-stream
@@ -74,12 +74,12 @@ jobs:
           echo "::set-output name=name::$(Get-ChildItem -Path .\out\make\**\**\*.exe -Name)"
           echo "::set-output name=path::.\out\make\$(Get-ChildItem -Path .\out\make -Include *.exe -Recurse -Name)"
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.exe-filename.outputs.path }}
           asset_name: ${{ steps.exe-filename.outputs.name }}
           asset_content_type: application/vnd.microsoft.portable-executable
@@ -93,17 +93,17 @@ jobs:
       - run: npm ci
       - name: Build project
         run: npm run make
-      - id: dmg-filename
+      - id: zip-filename
         run: |
-          echo ::set-output name=name::$(find ./out/make -name "*.dmg" | sed "s/.*\///")
-          echo ::set-output name=path::$(find ./out/make -name "*.dmg")
+          echo ::set-output name=name::$(find ./out/make -name "*.zip" | sed "s/.*\///")
+          echo ::set-output name=path::$(find ./out/make -name "*.zip")
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ${{ steps.dmg-filename.outputs.path }}
-          asset_name: ${{ steps.dmg-filename.outputs.name }}
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ${{ steps.zip-filename.outputs.path }}
+          asset_name: ${{ steps.zip-filename.outputs.name }}
           asset_content_type: application/octet-stream
