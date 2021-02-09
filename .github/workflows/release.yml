@@ -106,4 +106,4 @@ jobs:
           upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.zip-filename.outputs.path }}
           asset_name: ${{ steps.zip-filename.outputs.name }}
-          asset_content_type: application/octet-stream
+          asset_content_type: application/zip
