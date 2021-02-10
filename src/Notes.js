@@ -9,20 +9,19 @@ function Notes(props) {
   React.useEffect(() => {
     if (props.notesRef) {
       return props.notesRef.onSnapshot((snapshot) => {
-        const newTags = {};
-        newTags["All notes"] = true;
-        snapshot.forEach((doc) => {
-          for (const tag of doc.data().tags) {
-            if (tags[tag]) {
-              newTags["All notes"] = false;
-            }
-            newTags[tag] = tags[tag];
-          }
+        setTags({
+          ...Object.fromEntries(
+            [].concat(
+              ...snapshot.docs.map((doc) =>
+                doc.get("tags").map((tag) => [tag, false])
+              )
+            )
+          ),
+          "All notes": true,
         });
-        setTags(newTags);
       });
     }
-  }, [props.notesRef, tags]);
+  }, [props.notesRef]);
 
   React.useEffect(() => {
     if (props.notesRef) {
@@ -109,7 +108,7 @@ function Notes(props) {
           </div>
         </div>
       </div>
-      <EditNote openDoc={openDoc} close={() => setOpenDoc(null)} />
+      {openDoc && <EditNote openDoc={openDoc} close={() => setOpenDoc(null)} />}
     </>
   );
 }

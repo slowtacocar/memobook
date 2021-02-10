@@ -26,24 +26,17 @@ function EditNote(props) {
     props.close();
   }
 
-  let openTags;
-  if (props.openDoc) {
-    openTags = props.openDoc.get("tags");
-    openTags.splice(openTags.indexOf("All notes"), 1);
-  }
+  let openTags = props.openDoc.get("tags");
+  openTags.splice(openTags.indexOf("All notes"), 1);
 
   return (
-    <div
-      className={`note container-fluid d-flex flex-column py-3${
-        props.openDoc ? "" : " hidden"
-      }`}
-    >
+    <div className="note container-fluid d-flex flex-column py-3">
       <div
         ref={noteBody}
         contentEditable
         className="form-control note-text flex-grow-1 mb-3"
         dangerouslySetInnerHTML={{
-          __html: props.openDoc ? props.openDoc.get("html") : "",
+          __html: props.openDoc.get("html"),
         }}
       />
       <div className="input-group mb-3">
