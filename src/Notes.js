@@ -1,5 +1,10 @@
 import React from "react";
 import EditNote from "./EditNote";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Nav from "react-bootstrap/Nav";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function Notes(props) {
   const [tagged, setTagged] = React.useState([]);
@@ -65,49 +70,42 @@ function Notes(props) {
 
   return (
     <>
-      <div className="row">
-        <div className="col-3 py-3 pr-3">
-          <div className="nav flex-column nav-pills tags">
+      <Row>
+        <Col xs={3} className="py-3 pr-3">
+          <Nav variant="pills" className="flex-column tags">
             {Object.entries(tags).map(([key, value]) => (
-              <a
+              <Nav.Link
                 key={key}
-                className={`nav-link tag${value ? " active" : ""}`}
-                href="#"
+                className={`tag${value ? " active" : ""}`}
                 onClick={() => selectTag(key)}
               >
                 {key}
-              </a>
+              </Nav.Link>
             ))}
-          </div>
-        </div>
-        <div className="dashboard col-9 d-flex flex-column">
-          <div className="notes flex-grow-1">
-            <div className="row container-fluid pt-3">
+          </Nav>
+        </Col>
+        <Col xs={9} className="dashboard d-flex flex-column">
+          <div className="notes flex-grow-1 p-3">
+            <Row>
               {tagged.map((doc) => (
-                <div className="col-sm-6 col-lg-4 mb-4" key={doc.id}>
-                  <div className="card">
-                    <div className="card-body note-body">{doc.data().html}</div>
-                    <div className="card-footer">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => setOpenDoc(doc)}
-                      >
-                        Open Note
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Col sm={6} lg={4} className="mb-4" key={doc.id}>
+                  <Card>
+                    <Card.Body className="note-body">
+                      {doc.data().html}
+                    </Card.Body>
+                    <Card.Footer>
+                      <Button onClick={() => setOpenDoc(doc)}>Open Note</Button>
+                    </Card.Footer>
+                  </Card>
+                </Col>
               ))}
-            </div>
+            </Row>
           </div>
-          <div className="dashboard-buttons container-fluid py-3">
-            <button type="button" className="btn btn-primary" onClick={newNote}>
-              New Note
-            </button>
+          <div className="dashboard-buttons p-3">
+            <Button onClick={newNote}>New Note</Button>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
       {openDoc && <EditNote openDoc={openDoc} close={() => setOpenDoc(null)} />}
     </>
   );

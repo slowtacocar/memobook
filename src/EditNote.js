@@ -1,4 +1,8 @@
 import React from "react";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 function EditNote(props) {
   const noteBody = React.useRef();
@@ -30,43 +34,37 @@ function EditNote(props) {
   openTags.splice(openTags.indexOf("All notes"), 1);
 
   return (
-    <div className="note container-fluid d-flex flex-column py-3">
-      <div
+    <Container fluid className="note d-flex flex-column py-3">
+      <FormControl
+        as="div"
         ref={noteBody}
         contentEditable
-        className="form-control note-text flex-grow-1 mb-3"
+        className="note-text flex-grow-1 mb-3"
         dangerouslySetInnerHTML={{
           __html: props.openDoc.get("html"),
         }}
       />
-      <div className="input-group mb-3">
-        <div className="input-group-prepend">
-          <span className="input-group-text">Tags</span>
-        </div>
-        <input
-          type="text"
-          className="form-control tags-text"
+      <InputGroup className="mb-3">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="tags">Tags</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          className="tags-text"
           aria-describedby="tags"
           defaultValue={openTags ? openTags.join() : ""}
           ref={tagsRef}
         />
-      </div>
+      </InputGroup>
       <div>
-        <button type="button" className="btn btn-primary" onClick={saveNote}>
-          Save Changes
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={closeNote}>
+        <Button onClick={saveNote}>Save Changes</Button>
+        <Button variant="secondary" onClick={closeNote}>
           Close Note
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger float-end"
-          onClick={deleteNote}
-        >
+        </Button>
+        <Button variant="danger" className="float-right" onClick={deleteNote}>
           Delete
-        </button>
+        </Button>
       </div>
-    </div>
+    </Container>
   );
 }
 
