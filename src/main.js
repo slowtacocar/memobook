@@ -1,5 +1,5 @@
+/* global MAIN_WINDOW_WEBPACK_ENTRY */
 const { app, BrowserWindow } = require("electron");
-const path = require("path");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
